@@ -206,13 +206,14 @@ document.addEventListener("click", (event) => {
   if (action === "open-product") openModal("product"); if (action === "open-client") openModal("client"); if (action === "open-employee") openModal("employee"); if (action === "open-movement") openModal("movement");
 });
 
-// Cada atalho de navegação recebe seu próprio evento para trocar a tela sem recarregar a página.
-document.querySelectorAll("[data-view]").forEach((link) => {
-  link.addEventListener("click", (event) => {
-    event.preventDefault();
-    changeView(link.dataset.view);
-  });
-});
+// A URL também representa a tela aberta (ex.: #clientes), permitindo usar voltar/avançar do navegador.
+const availableViews = ["painel", "produtos", "movimentacoes", "clientes", "funcionarios", "relatorios"];
+function openViewFromHash() {
+  const requestedView = window.location.hash.replace("#", "");
+  changeView(availableViews.includes(requestedView) ? requestedView : "painel");
+}
+
+window.addEventListener("hashchange", openViewFromHash);
 document.querySelector("#modal-form").addEventListener("submit", handleForm);
 document.querySelector("#close-modal").addEventListener("click", closeModal);
 document.querySelector("#modal-backdrop").addEventListener("click", (event) => { if (event.target.id === "modal-backdrop") closeModal(); });
@@ -226,3 +227,4 @@ document.querySelector("#menu-button").addEventListener("click", () => document.
 document.addEventListener("keydown", (event) => { if (event.key === "Escape") closeModal(); });
 
 render();
+openViewFromHash();
