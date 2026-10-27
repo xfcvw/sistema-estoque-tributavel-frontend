@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Protótipo de interface para o Sistema de Estoque Tributável."
+    />
+    <title>Estoque Tributável</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Navegação principal">
+        <a class="brand" href="#painel" aria-label="Estoque Tributável - início">
+          <span class="brand-mark">ET</span>
+          <span>Estoque<br /><strong>Tributável</strong></span>
+        </a>
+
+        <nav class="navigation">
+          <a class="nav-link active" href="#painel" data-view="painel">⌂ <span>Painel</span></a>
+          <a class="nav-link" href="#produtos" data-view="produtos">▣ <span>Produtos</span></a>
+          <a class="nav-link" href="#movimentacoes" data-view="movimentacoes">↔ <span>Movimentações</span></a>
+          <a class="nav-link" href="#clientes" data-view="clientes">♙ <span>Clientes</span></a>
+          <a class="nav-link" href="#funcionarios" data-view="funcionarios">♧ <span>Funcionários</span></a>
+          <a class="nav-link" href="#relatorios" data-view="relatorios">▤ <span>Relatórios</span></a>
+        </nav>
+
+        <div class="sidebar-bottom">
+          <p class="demo-label">AMBIENTE DE DEMONSTRAÇÃO</p>
+          <button class="text-button" id="reset-data" type="button">↺ Restaurar dados de exemplo</button>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <header class="topbar">
+          <button class="menu-button" type="button" id="menu-button" aria-label="Abrir menu">☰</button>
+          <div>
+            <p class="eyebrow" id="page-kicker">VISÃO GERAL</p>
+            <h1 id="page-title">Bom dia, Vinicius.</h1>
+          </div>
+          <div class="topbar-actions">
+            <span class="regime-chip" id="regime-chip">Simples Nacional · 6%</span>
+            <button class="avatar" type="button" aria-label="Perfil de Vinicius">V</button>
+          </div>
+        </header>
+
+        <section class="view active" id="painel-view" aria-labelledby="page-title">
+          <div class="hero-card">
+            <div>
+              <p class="hero-overline">CONTROLE CENTRALIZADO</p>
+              <h2>Estoque organizado.<br /><span>Decisões mais seguras.</span></h2>
+              <p>Veja os alertas do dia e mantenha produtos, clientes e movimentações em um único lugar.</p>
+            </div>
+            <button class="button primary" type="button" data-action="open-product">+ Novo produto</button>
+          </div>
+
+          <div class="metrics-grid" aria-label="Resumo do estoque">
+            <article class="metric-card"><span class="metric-icon blue">▣</span><div><p>Produtos cadastrados</p><strong id="metric-products">0</strong><small>Itens ativos no catálogo</small></div></article>
+            <article class="metric-card"><span class="metric-icon orange">!</span><div><p>Estoque mínimo</p><strong id="metric-low-stock">0</strong><small>Produtos precisam de atenção</small></div></article>
+            <article class="metric-card"><span class="metric-icon green">↗</span><div><p>Entradas no mês</p><strong id="metric-entries">0</strong><small>Unidades registradas</small></div></article>
+            <article class="metric-card"><span class="metric-icon purple">R$</span><div><p>Valor em estoque</p><strong id="metric-value">R$ 0,00</strong><small>Valor de custo estimado</small></div></article>
+          </div>
+
+          <div class="dashboard-grid">
+            <section class="panel-card" aria-labelledby="low-stock-title">
+              <div class="panel-heading"><div><p class="eyebrow">ATENÇÃO NECESSÁRIA</p><h2 id="low-stock-title">Estoque no limite</h2></div><a href="#produtos" class="link-button" data-view="produtos">Ver todos →</a></div>
+              <div id="low-stock-list" class="compact-list"></div>
+            </section>
+            <section class="panel-card" aria-labelledby="activity-title">
+              <div class="panel-heading"><div><p class="eyebrow">HISTÓRICO</p><h2 id="activity-title">Últimas movimentações</h2></div><a href="#movimentacoes" class="link-button" data-view="movimentacoes">Ver histórico →</a></div>
+              <div id="recent-activity" class="compact-list"></div>
+            </section>
+          </div>
+        </section>
+
+        <section class="view" id="produtos-view" aria-labelledby="products-heading">
+          <div class="section-heading"><div><p class="eyebrow">CATÁLOGO</p><h2 id="products-heading">Produtos</h2><p>Controle quantidades, origem, NCM e alíquota de cada item.</p></div><button class="button primary" type="button" data-action="open-product">+ Cadastrar produto</button></div>
+          <div class="toolbar"><label class="search-field">⌕ <input id="product-search" type="search" placeholder="Buscar por produto, código ou categoria" /></label><select id="product-filter" aria-label="Filtrar produtos"><option value="todos">Todos os status</option><option value="baixo">Estoque baixo</option><option value="ok">Estoque regular</option></select></div>
+          <div class="table-card table-scroll"><table><thead><tr><th>Produto</th><th>Categoria</th><th>Origem / NCM</th><th>Estoque</th><th>Alíquota</th><th>Status</th></tr></thead><tbody id="products-table"></tbody></table></div>
+        </section>
+
+        <section class="view" id="movimentacoes-view" aria-labelledby="moves-heading">
+          <div class="section-heading"><div><p class="eyebrow">ENTRADAS E SAÍDAS</p><h2 id="moves-heading">Movimentações</h2><p>Registre cada alteração de estoque e preserve o histórico.</p></div><button class="button primary" type="button" data-action="open-movement">+ Registrar movimentação</button></div>
+          <div class="info-banner">ⓘ A saída é bloqueada automaticamente quando a quantidade solicitada é maior que o estoque disponível.</div>
+          <div class="table-card table-scroll"><table><thead><tr><th>Data</th><th>Tipo</th><th>Produto</th><th>Quantidade</th><th>Responsável</th><th>Observação</th></tr></thead><tbody id="movements-table"></tbody></table></div>
+        </section>
+
+        <section class="view" id="clientes-view" aria-labelledby="clients-heading">
+          <div class="section-heading"><div><p class="eyebrow">PESSOAS</p><h2 id="clients-heading">Clientes</h2><p>Cadastre clientes com CPF válido e consulte os registros rapidamente.</p></div><button class="button primary" type="button" data-action="open-client">+ Cadastrar cliente</button></div>
+          <div class="toolbar"><label class="search-field">⌕ <input id="client-search" type="search" placeholder="Buscar por nome ou CPF" /></label></div>
+          <div class="table-card table-scroll"><table><thead><tr><th>Cliente</th><th>CPF</th><th>Telefone</th><th>E-mail</th><th>Cadastro</th></tr></thead><tbody id="clients-table"></tbody></table></div>
+        </section>
+
+        <section class="view" id="funcionarios-view" aria-labelledby="employees-heading">
+          <div class="section-heading"><div><p class="eyebrow">EQUIPE</p><h2 id="employees-heading">Funcionários</h2><p>Consulte quem pode realizar registros no sistema.</p></div><button class="button primary" type="button" data-action="open-employee">+ Cadastrar funcionário</button></div>
+          <div class="table-card table-scroll"><table><thead><tr><th>Código</th><th>Funcionário</th><th>Cargo</th><th>Telefone</th><th>Status</th></tr></thead><tbody id="employees-table"></tbody></table></div>
+        </section>
+
+        <section class="view" id="relatorios-view" aria-labelledby="reports-heading">
+          <div class="section-heading"><div><p class="eyebrow">ANÁLISE</p><h2 id="reports-heading">Relatórios</h2><p>Resumo simples para apoiar a gestão do estoque tributável.</p></div></div>
+          <div class="report-grid"><article class="panel-card"><p class="eyebrow">REGIME TRIBUTÁRIO</p><h2 id="report-regime">Simples Nacional</h2><p class="muted">Alíquota base aplicada à demonstração.</p><strong class="report-number" id="report-rate">6%</strong><button class="link-button" id="change-regime" type="button">Alterar regime →</button></article><article class="panel-card"><p class="eyebrow">ESTOQUE ATUAL</p><h2>Resumo por categoria</h2><div id="category-summary" class="summary-list"></div></article></div>
+          <section class="panel-card report-card"><p class="eyebrow">SIMULAÇÃO</p><h2>Impostos estimados do estoque</h2><p class="muted">Cálculo didático: valor em estoque × alíquota informada em cada produto. Não substitui orientação fiscal.</p><strong class="report-number" id="tax-estimate">R$ 0,00</strong></section>
+        </section>
+      </main>
+    </div>
+
+    <div class="modal-backdrop" id="modal-backdrop" hidden>
+      <section class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <button class="close-button" type="button" aria-label="Fechar" id="close-modal">×</button>
+        <p class="eyebrow" id="modal-kicker">CADASTRO</p><h2 id="modal-title">Novo registro</h2>
+        <form id="modal-form" novalidate></form>
+      </section>
+    </div>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="app.js"></script>
+  </body>
+</html>
