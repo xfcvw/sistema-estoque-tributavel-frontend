@@ -55,18 +55,18 @@
         <section class="view active" id="painel-view" aria-labelledby="page-title">
           <div class="hero-card">
             <div>
-              <p class="hero-overline">CONTROLE CENTRALIZADO</p>
-              <h2>Estoque organizado.<br /><span>Decisões mais seguras.</span></h2>
-              <p>Veja os alertas do dia e mantenha produtos, clientes e movimentações em um único lugar.</p>
+              <p class="hero-overline">PRIORIDADE DE HOJE</p>
+              <h2 id="priority-hero-title">Verifique os produtos<br /><span>que precisam de reposição.</span></h2>
+              <p id="priority-hero-description">Veja primeiro o que exige atenção para evitar falta de produtos.</p>
             </div>
-            <button class="button primary" type="button" data-action="open-product">+ Novo produto</button>
+            <a class="button hero-action" href="#produtos">Ver itens críticos →</a>
           </div>
 
           <div class="metrics-grid" aria-label="Resumo do estoque">
-            <article class="metric-card"><span class="metric-icon blue">▣</span><div><p>Produtos cadastrados</p><strong id="metric-products">0</strong><small>Itens ativos no catálogo</small></div></article>
-            <article class="metric-card"><span class="metric-icon orange">!</span><div><p>Estoque mínimo</p><strong id="metric-low-stock">0</strong><small>Produtos precisam de atenção</small></div></article>
-            <article class="metric-card"><span class="metric-icon green">↗</span><div><p>Entradas no mês</p><strong id="metric-entries">0</strong><small>Unidades registradas</small></div></article>
+            <article class="metric-card priority-metric" id="low-stock-metric"><span class="metric-icon orange">!</span><div><p>Estoque mínimo</p><strong id="metric-low-stock">0</strong><small id="metric-low-stock-label">Produtos precisam de atenção</small></div><a href="#produtos" class="metric-link" aria-label="Ver produtos com estoque baixo">Ver →</a></article>
             <article class="metric-card"><span class="metric-icon purple">R$</span><div><p>Valor em estoque</p><strong id="metric-value">R$ 0,00</strong><small>Valor de custo estimado</small></div></article>
+            <article class="metric-card"><span class="metric-icon blue">▣</span><div><p>Produtos cadastrados</p><strong id="metric-products">0</strong><small>Itens ativos no catálogo</small></div></article>
+            <article class="metric-card"><span class="metric-icon green">↗</span><div><p>Entradas no mês</p><strong id="metric-entries">0</strong><small>Unidades registradas</small></div></article>
           </div>
 
           <div class="dashboard-grid">
