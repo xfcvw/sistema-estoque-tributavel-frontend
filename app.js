@@ -204,7 +204,14 @@ function changeView(view) {
 document.addEventListener("click", (event) => {
   const action = event.target.closest("[data-action]")?.dataset.action;
   if (action === "open-product") openModal("product"); if (action === "open-client") openModal("client"); if (action === "open-employee") openModal("employee"); if (action === "open-movement") openModal("movement");
-  const viewLink = event.target.closest("[data-view]"); if (viewLink) { event.preventDefault(); changeView(viewLink.dataset.view); }
+});
+
+// Cada atalho de navegação recebe seu próprio evento para trocar a tela sem recarregar a página.
+document.querySelectorAll("[data-view]").forEach((link) => {
+  link.addEventListener("click", (event) => {
+    event.preventDefault();
+    changeView(link.dataset.view);
+  });
 });
 document.querySelector("#modal-form").addEventListener("submit", handleForm);
 document.querySelector("#close-modal").addEventListener("click", closeModal);
