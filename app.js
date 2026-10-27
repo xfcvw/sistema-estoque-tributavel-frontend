@@ -85,6 +85,18 @@ function renderDashboard() {
   document.querySelector("#metric-low-stock").textContent = lowProducts.length;
   document.querySelector("#metric-entries").textContent = entries;
   document.querySelector("#metric-value").textContent = money(stockValue);
+  document.querySelector("#metric-low-stock-label").textContent = lowProducts.length === 1
+    ? "Produto precisa de atenção"
+    : "Produtos precisam de atenção";
+
+  // O alerta mais relevante ocupa a primeira área visual do painel.
+  document.querySelector("#priority-hero-title").innerHTML = lowProducts.length
+    ? `${lowProducts.length} ${lowProducts.length === 1 ? "produto precisa" : "produtos precisam"}<br /><span>de reposição agora.</span>`
+    : "Estoque sob controle.<br /><span>Nenhuma reposição urgente.</span>";
+  document.querySelector("#priority-hero-description").textContent = lowProducts.length
+    ? "Confira os itens abaixo antes de registrar novas vendas para evitar falta de produto."
+    : "Todos os produtos estão acima do estoque mínimo cadastrado.";
+  document.querySelector("#low-stock-metric").classList.toggle("priority-metric", lowProducts.length > 0);
   document.querySelector("#low-stock-list").innerHTML = lowProducts.length ? lowProducts.map((item) => `
     <div class="compact-row"><span class="product-dot">${item.name.charAt(0)}</span><div><strong>${item.name}</strong><small>${item.id} · mínimo: ${item.minimum} unidades</small></div><div class="row-value"><strong>${item.quantity}</strong><small>unidades</small></div><span class="badge warning">Repor</span></div>`).join("") : "<p class='muted'>Nenhum produto no estoque mínimo.</p>";
   document.querySelector("#recent-activity").innerHTML = state.movements.slice(0, 4).map((item) => {
