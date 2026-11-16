@@ -208,7 +208,7 @@ function changeView(view) {
   activeView = view;
   document.querySelectorAll(".view").forEach((element) => element.classList.toggle("active", element.id === `${view}-view`));
   document.querySelectorAll(".nav-link").forEach((element) => element.classList.toggle("active", element.dataset.view === view));
-  const headings = { painel:["VISÃO GERAL", "Bom dia, Vinicius."], produtos:["CATÁLOGO", "Controle de produtos"], movimentacoes:["MOVIMENTAÇÕES", "Atualização de estoque"], clientes:["PESSOAS", "Base de clientes"], funcionarios:["EQUIPE", "Gestão de funcionários"], relatorios:["ANÁLISE", "Visão para decisão"] };
+  const headings = { painel:["VISÃO GERAL", "Bom dia, Professor(a) Demo."], produtos:["CATÁLOGO", "Controle de produtos"], movimentacoes:["MOVIMENTAÇÕES", "Atualização de estoque"], clientes:["PESSOAS", "Base de clientes"], funcionarios:["EQUIPE", "Gestão de funcionários"], relatorios:["ANÁLISE", "Visão para decisão"] };
   document.querySelector("#page-kicker").textContent = headings[view][0]; document.querySelector("#page-title").textContent = headings[view][1];
   document.querySelector(".sidebar").classList.remove("open"); window.scrollTo({ top: 0, behavior: "smooth" });
 }
